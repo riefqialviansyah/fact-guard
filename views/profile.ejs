@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/profile.css">
+    <title>FactGuard</title>
+</head>
+<body>
+    <%- include('layout/nav-user', { role: role}); %>
+
+    <div class="container">
+        <div class="title">
+            <h1>Edit Profile</h1>
+        </div>
+        <div style="text-align: center;">
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
+        </div>
+        <div class="form">
+            <form action="/user/profile/<%= UserId %>" method="post">
+                <table>
+                    <tr>
+                        <td><label>First Name</label></td>
+                        <td><input type="text" name="firstName" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Last Name</label></td>
+                        <td><input type="text" name="lastName" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Date Of Birth</label></td>
+                        <td><input type="date" name="dateOfBirth" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Hobby</label></td>
+                        <td><input type="text" name="hobby" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Gender</label></td>
+                        <td><input type="text" name="gender" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Organization</label></td>
+                        <td><input type="text" name="organization" autocomplete="off"></td>
+                    </tr>
+                </table>
+                <div class="btn-submit">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
