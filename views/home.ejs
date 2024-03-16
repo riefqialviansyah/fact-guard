@@ -1,112 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/home.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/home.css" />
     <title>FactGuard</title>
-</head>
-<body>
-    <%- include('layout/nav-user', {name: 'greenpeace', role: userData.role, UserId}); %>
+  </head>
+  <body>
+    <%- include('layout/nav-user', {name: 'greenpeace', role: userData.role,
+    UserId}); %>
     <div class="container">
-
-        <div class="form-post">
-            <h2>Create Post</h2>
-            <form action="/user/home" method="post">
-                <div>
-                    <input type="hidden" name="UserId" value="<%= UserId %>">
-                    <input type="text" name="title" placeholder="title">
-                </div>
-                <div>
-                    <input type="text" name="imgUrl" placeholder="image url">
-                    <select name="TagId" id="">
-                        <option value="" disabled selected>Select Tag</option>
-                        <% tags.forEach(el => { %>
-                         <option value="<%= el.id %>"><%= el.name %></option>
-                        <% }) %>
-                    </select>
-                </div>
-                <div>
-                    <textarea name="content" cols="80" rows="3" placeholder="write description here..."></textarea>
-                </div>
-                <div>
-                    
-                </div>
-                <div>
-                    <button type="submit">Post</button>
-                    <% if (error) { %>
-                        <span class="error"><%= error.split(',').join(' ') %></span> 
-                     <% } %>
-                </div>
-            </form>
-        </div>
-
-        <div class="profile">
-            <div class="title">
-                <h2>Account</h2>
-            </div>
-            <div class="user-profile">
-                <p>userId: <%= userData.id %> </p>
-                <p>username: <%= userData.username %></p>
-                <p>role: <%= userData.role %></p>
-            </div>
-
-            <% if (profileData) { %>
-            <div class="title">
-                <h2>Profile</h2>
-            </div>
-            <div>
-                <p>Name: <%= profileData.fullName %></p>
-                <p>Birth: <%= profileData.formatedBirth() %> </p>
-                <p>Hobby: <%= profileData.hobby %></p>
-                <p>Gender: <%= profileData.gender %></p>
-                <p>Organization: <%= profileData.organization %> </p>
-                <p>Join FG: <%= profileData.formatedCreated() %> </p>
-            </div>
+      <div class="form-post">
+        <h2>Create Post</h2>
+        <form action="/user/home" method="post">
+          <div>
+            <input type="hidden" name="UserId" value="<%= UserId %>" />
+            <input type="text" name="title" placeholder="title" />
+          </div>
+          <div>
+            <input type="text" name="imgUrl" placeholder="image url" />
+            <select name="TagId" id="" style="border-radius: 5px; padding: 2px">
+              <option value="" disabled selected>Select Tag</option>
+              <% tags.forEach(el => { %>
+              <option value="<%= el.id %>"><%= el.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <textarea
+              name="content"
+              cols="80"
+              rows="3"
+              placeholder="write description here..."
+            ></textarea>
+          </div>
+          <div></div>
+          <div>
+            <button type="submit">Post</button>
+            <% if (error) { %>
+            <span class="error"><%= error.split(',').join(' ') %></span>
             <% } %>
-            <div class="title">
-                <h2>Create Tag</h2>
-            </div>
-            <div style="text-align: center;">
-                <% if (errCreateTag) { %> 
-                    <p style="color: red;"><%= errCreateTag %></p>
-                <% } %>
-            </div>
-            <div class="createTag">
-                <form action="/user/tag" method="post">
-                    <input type="text" name="tagName"><br>
-                    <button type="submit">Add Tag</button>
-                </form>
-            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="profile">
+        <div class="title">
+          <h2>Account</h2>
         </div>
-        
-        <div class="post">
-            <div class="title">
-                <h2>Post</h2>
-            </div>
-            <% if (posts.length != 0) { %>
-            <% posts.forEach((el,i) => { %>
-            <div class="card-post">
-                <img src="<%= el.imgUrl %>">
-                <h4><%= el.title %> ~ <%= el.User.username %></h4>
-                <div class="release-date">
-                    <span>( Release : <%= el.formatLocalDate %> )</span>
-                </div>
-                <p><%= el.content %></p>
-                <p class="hastag"><%= listTag[i] %></p><br>
-                <form action="/user/addTag/<%= el.id %>" method="post">
-                    <select name="TagId" id="">
-                        <option value="" disabled selected>--Add Tag--</option>
-                        <% tags.forEach(el => { %>
-                         <option value="<%= el.id %>"><%= el.name %></option>
-                        <% }) %>
-                    </select>
-                    <button type="submit">Add Tag</button>
-                </form>
-            </div>
-            <% }) %>
-            <% } %>
+        <div class="user-profile">
+          <p>userId: <%= userData.id %></p>
+          <p>username: <%= userData.username %></p>
+          <p>role: <%= userData.role %></p>
         </div>
+
+        <% if (profileData) { %>
+        <div class="title">
+          <h2>Profile</h2>
+        </div>
+        <div>
+          <p>Name: <%= profileData.fullName %></p>
+          <p>Birth: <%= profileData.formatedBirth() %></p>
+          <p>Hobby: <%= profileData.hobby %></p>
+          <p>Gender: <%= profileData.gender %></p>
+          <p>Organization: <%= profileData.organization %></p>
+          <p>Join FG: <%= profileData.formatedCreated() %></p>
+        </div>
+        <% } %>
+        <div class="title">
+          <h2>Create Tag</h2>
+        </div>
+        <div style="text-align: center">
+          <% if (errCreateTag) { %>
+          <p style="color: red"><%= errCreateTag %></p>
+          <% } %>
+        </div>
+        <div class="createTag">
+          <form action="/user/tag" method="post">
+            <input type="text" name="tagName" /><br />
+            <button type="submit">Add Tag</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="title">
+          <h2>Post</h2>
+        </div>
+        <% if (posts.length != 0) { %> <% posts.forEach((el,i) => { %>
+        <div class="card-post">
+          <img src="<%= el.imgUrl %>" />
+          <h4><%= el.title %> ~ Created By: <%= el.User.username %></h4>
+          <div class="release-date">
+            <span>( Release : <%= el.formatLocalDate %> )</span>
+          </div>
+          <p><%= el.content %></p>
+          <p class="hastag"><%= listTag[i] %></p>
+          <br />
+          <form action="/user/addTag/<%= el.id %>" method="post">
+            <select name="TagId" id="">
+              <option value="" disabled selected>--Add Tag--</option>
+              <% tags.forEach(el => { %>
+              <option value="<%= el.id %>"><%= el.name %></option>
+              <% }) %>
+            </select>
+            <button type="submit">Add Tag</button>
+          </form>
+        </div>
+        <% }) %> <% } %>
+      </div>
     </div>
-</body>
+  </body>
 </html>
